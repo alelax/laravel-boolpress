@@ -42,12 +42,12 @@ class PostController extends Controller
             $new_post->content = $request->input('postContent');
             $new_post->author = $request->input('postAuthor');
 
-            $validate = $request->validate([
+            /* $validate = $request->validate([
                 'title'    => 'required',
                 'subtitle' => 'required',
                 'content'  => 'required',
                 'author'   => 'required'
-            ]);
+            ]); */
             
             $new_post->save();
 
@@ -77,24 +77,44 @@ class PostController extends Controller
 
             $post_to_editing->categories()->sync($request->input('postCategory'));
 
-            $validate = $request->validate([
+            /* $validate = $request->validate([
                 'title'    => 'required',
                 'subtitle' => 'required',
                 'content'  => 'required',
                 'author'   => 'required'
-            ]);
+            ]); */
 
             return redirect()->route('post.detail', $post_to_editing['title']);
         }
     }
-   /*  public function edit(Request $request, $postslug)
+   
+    public function search(Request $request)
     {
-        
-        
+        $data = $request->all();    
 
+        $authors = Post::select('author')->get();
+        $categories = Category::select('name')->get();
         
-        
+        $posts = new Post();
 
-        
-    } */
+        if( !empty($data['title']) ) {
+            $posts = $posts -> where('title', 'like', '%' . $data['title'] . '%');
+        }
+
+        if( !empty($data['author']) ) {
+            $posts = $posts -> where('author', $data['author']);
+        }
+
+        if( !empty($data['category']) ) {
+            $posts = $posts->join('category_post', 'category_post.post_id', '=', 'posts.id')
+                           ->join('categories', 'categories.id', '=', 'category_post.category_id')
+                           -> where('categories.name', $data['category']);
+        }
+        $posts = $posts->get();
+        /* dd($posts); */
+
+
+        return view('search.index', ['posts' => $posts, 'authors' => $authors, 'categories' => $categories] );
+    }
 }
+

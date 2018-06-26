@@ -21,3 +21,6 @@ Route::match(['get', 'post'], '/admin/post/new', 'PostController@newPost') -> na
 
 Route::get('/category/{category_name}', 'CategoryController@show') -> name('category.postList');
 
+Route::get('/search', 'PostController@search') -> name('posts.search');
+
+

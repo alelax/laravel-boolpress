@@ -1,13 +1,13 @@
 @extends('layouts/app')
 
-@if( $errors -> any() )
+{{-- @if( $errors -> any() )
     <ul>
         @foreach ($errors->all() as $error)
             <li> {{ $errors }} </li>
         @endforeach
     </ul>
 @endif
-
+ --}}
 
 @section('content')
     <div class="container">

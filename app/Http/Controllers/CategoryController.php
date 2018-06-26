@@ -15,7 +15,10 @@ class CategoryController extends Controller
                               ->join('posts', 'category_post.post_id', '=', 'posts.id')
                               ->where('categories.name', $category_name)    
                               ->select('*')->get();
-        /* dd($categories); */   
+           
         return view( 'post_by_category.index', ['filtered_post' => $categories, 'categoria' => $category_name] );
+
     }
+
 }
+
