@@ -106,14 +106,15 @@ class PostController extends Controller
         }
 
         if( !empty($data['category']) ) {
-            $posts = $posts->join('category_post', 'category_post.post_id', '=', 'posts.id')
+            $posts = $posts->whereHas('categories', function($query) use ($data) {
+                return $query->where('name', $data['category']);
+            });
+            /* $posts = $posts->join('category_post', 'category_post.post_id', '=', 'posts.id')
                            ->join('categories', 'categories.id', '=', 'category_post.category_id')
-                           -> where('categories.name', $data['category']);
+                           -> where('categories.name', $data['category']); */
         }
         $posts = $posts->get();
-        /* dd($posts); */
-
-
+        
         return view('search.index', ['posts' => $posts, 'authors' => $authors, 'categories' => $categories] );
     }
 }

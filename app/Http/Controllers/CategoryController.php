@@ -11,14 +11,24 @@ class CategoryController extends Controller
     public function show($category_name)
     {
         
-        $categories = Category::join('category_post', 'categories.id', '=', 'category_post.category_id')
+        /* $categories = Category::join('category_post', 'categories.id', '=', 'category_post.category_id')
                               ->join('posts', 'category_post.post_id', '=', 'posts.id')
                               ->where('categories.name', $category_name)    
                               ->select('*')->get();
-           
-        return view( 'post_by_category.index', ['filtered_post' => $categories, 'categoria' => $category_name] );
+         */
+        
+         
+        $category = Category::where('name', $category_name)->first();
+
+        if (empty($category)) abort(404);
+
+        $posts = $category->posts;
+        
+        return view( 'post_by_category.index', ['filtered_post' => $posts, 'categoria' => $category_name] );
 
     }
+
+
 
 }
 

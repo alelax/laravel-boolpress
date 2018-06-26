@@ -46,8 +46,8 @@
                 <tr>
                     <td> {{ $post['title'] }} </td>
                     <td> 
-                        @foreach ($post['categories'] as $c)
-                            {{ '-' . $c['name'] . '-' }}                        
+                        @foreach ($post['categories'] as $p)
+                            {{ '-' . $p['name'] . '-' }}                        
                         @endforeach 
                     </td>
                     <td> {{ $post['author'] }}  </td> 
