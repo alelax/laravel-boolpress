@@ -24,3 +24,7 @@ Route::get('/category/{category_name}', 'CategoryController@show') -> name('cate
 Route::get('/search', 'PostController@search') -> name('posts.search');
 
 
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
