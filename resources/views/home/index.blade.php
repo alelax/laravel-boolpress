@@ -5,7 +5,7 @@
     <div class="container">
         <div class="row">
             <div class="list-group col-10 mx-auto">
-
+                <div>Ciaooooo</div>
                 @foreach ($posts as $p)
                 
                     <a href=" {{ route( 'post.detail', $p->title ) }} " class="list-group-item list-group-item-action flex-column align-items-start">
